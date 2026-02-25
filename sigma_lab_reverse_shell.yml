@@ -1,0 +1,29 @@
+title: Lab Reverse Shell-Like Outbound Connection
+id: 6b6baf40-0000-0000-0000-lab-revshell
+status: experimental
+description: Detects long-lived outbound TCP connections from victim to attacker on non-standard ports in the lab environment.
+author: Student
+date: 2026/02/25
+logsource:
+  product: network
+  service: firewall
+detection:
+  selection:
+    src_ip: 192.168.56.20
+    dst_ip: 192.168.56.10
+  filter_common_ports:
+    dst_port|contains:
+      - 80
+      - 443
+  condition: selection and not filter_common_ports
+fields:
+  - src_ip
+  - dst_ip
+  - src_port
+  - dst_port
+  - bytes
+  - duration
+falsepositives:
+  - Lab test traffic or administrative connections in the same address range.
+level: medium
+

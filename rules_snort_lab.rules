@@ -1,0 +1,10 @@
+# Snort rules for Reverse Shell Network Detection Study (lab only)
+
+alert tcp 192.168.56.20 any -> 192.168.56.10 4444 (
+    msg:"LAB Reverse Shell-Like Outbound to Kali";
+    flow:to_server,established;
+    classtype:trojan-activity;
+    sid:2000001;
+    rev:1;
+)
+
